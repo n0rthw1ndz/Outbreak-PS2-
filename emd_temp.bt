@@ -1,0 +1,66 @@
+//--------------------------------------
+//--- 010 Editor v6.0.3 Binary Template
+//
+// File: .EMD (enemy data)
+// Author: Dchaps
+// Revision: 1.0
+// Purpose: parse emd
+//--------------------------------------
+
+
+ulong get_sz; // just to get End of header
+
+FSeek(0); // seek to start after reading
+
+struct EMD_HEADER_OBJ
+{
+  int32 offset;
+  int32 size;
+
+}EMD_HEADER[get_sz / 8 ] <name="EMD_HEADER", comment="Array of offset/size", bgcolor=cLtRed>;
+
+struct EMD_Enemy_Obj // each enemy entry is 96 bytes, each room block size is 96 * number of enemies
+{
+byte Tag <comment="Some Tag">; 
+byte No <comment="Enemy Index #">;
+byte NBD_ID0 <comment="First part of NBD ID to use">;  
+byte NBD_ID1 <comment="Second part of NBD ID to use">;    //  4           Second part of NBD ID to use
+int ULong00;      // 8
+int ULong01;      // 12
+int X <comment="X Coordinate? ">;            // 16 Could be coords, X? 
+int Z <comment="Z Coordinate?">;           //  20 Could be coords, Z? 
+int Y <comment="Y Coordinate?">;           //  24 Could be coords, Y? 
+int R <comment="Rotation value">;           //  28 Rotation?
+byte Room_ID <comment="Room ID">;
+byte UByte;
+ushort UShort01;
+ushort UShort02;
+byte UByte00;
+byte UByte01;
+ushort UShort03;
+ushort UShort04;
+int ULong02;
+int ULong03;
+ushort UShort05;
+ushort UShort06;
+ushort UShort07;
+ushort UShort08;
+ushort UShort09;
+ushort UShort10;
+int ULong04;
+ushort UShort11;
+int ULong05;
+ushort UShort12;
+ushort UShort13;
+ushort UShort14;
+int ULong06;
+int ULong07;
+int ULong08;
+int ULong09;
+int ULong10;
+
+// Printf("%d", FileSize() / 96 - 1);
+
+}EMD_DATA[FileSize() / 96 - 1] <name="Enemy Entry", comment="A 96 byte enemy block, size of entire block / 96 determines entry count per room", bgcolor=cYellow>;
+
+int32 null_terminator<comment="Null/script terminator?">;

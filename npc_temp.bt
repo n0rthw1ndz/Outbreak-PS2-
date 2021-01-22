@@ -1,0 +1,84 @@
+//--------------------------------------
+//--- 010 Editor v6.0.3 Binary Template
+//
+// File:
+// Author:
+// Revision:
+// Purpose:
+//--------------------------------------
+
+
+int i,x;
+int32 _off;
+
+FSeek(0);
+//Printf("%d", _off / 8);
+
+struct NPC_HEADER_OBJ
+{
+ int32 offset;
+ int32 size;
+}main_header[_off / 8] <name="Main Header", comment="Offset/Size of main room blocks", bgcolor=cDkRed, fgcolor=cWhite>;
+
+
+
+  struct NPC_SUB_HEADER_OBJ
+{
+ 
+ int32 entries <comment = "defined NPC count">;
+ int32 offsets[3] <comment = "points to each NPC entry, 1st offset is also total size of sub header">;
+
+}sub_header[_off / 8] <name="Sub Header", comment="defines # of NPC's in a room, and the offsets where each object starts">;
+
+
+
+
+
+
+
+
+
+
+struct NPC_DATA_OBJ
+{
+int tag <comment = "some flag">; // 4
+int Room_ID <comment="Room ID">; // 8
+int Ulong00; // 12
+int N_ID<comment=" ID of NPC file to load">; // 16 npc that loads from the N table 
+float coord00 <comment="Y coordinate">; // 20 its a float, y
+int Ulong01; //24 not sure what this does
+float coord01 <comment="X coordinate">; //28 float, x
+int16 rotation <comment="NPC rotation">; //30 npc rotation
+int Ulong02; // 34
+int Ulong03; // 38
+int Ulong04; // 42
+int16 Ushort01; // 44
+byte Anim_ID<comment="Animation ID to load">; // 45
+byte Anim_Flag <comment="could be time/interval between animation ID's">; // 46 bytes(animation + intervel)
+int16 Ushort02; //  48
+byte Anim_ID2; //49 optional
+byte Anim_Flag2 <comment="could be time/interval between animation ID's">; //50
+int Ulong05; //54c
+int Ulong06; //58
+int Ulong07; //62
+int Ulong08; //66
+int Ulong09; // 70
+int16 Ushort03; //72
+int Alive_flag; //76 setting this to 0 kills the NPC 
+byte boundary <comment="Set or remove boundary for NPC">; //77 (Scale boundary)
+int Ulong10; // 
+int Ulong11;
+int Ulong12;
+int Ulong13;
+int Ulong14;
+int Ulong15;      // these last longs are just blank data
+int Ulong16;
+int Ulong17;
+int Ulong18;
+int Ulong19;
+int Ulong20;
+int Ulong21;
+int16 uShort04;
+byte fill; // 128
+
+}NPC_DATA[sub_header.entries] <name="NPC ENTRY", comment="defined properties for interactable NPC">;

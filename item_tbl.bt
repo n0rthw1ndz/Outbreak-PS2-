@@ -1,0 +1,23 @@
+//--------------------------------------
+//--- 010 Editor v6.0.3 Binary Template
+//
+// File: item tables (.TBL)
+// Author: Dchaps
+// Revision: 1.0
+// Purpose: parse tbls..
+//--------------------------------------
+
+
+struct tbl_header_obj
+{
+   int32 tag;
+   int32 item_count;
+}tbl_header <bgcolor=cRed, name="Header", comment="Header, tag/count">;
+
+struct item_table
+{
+  int16 ival;
+  byte quantity;
+  byte occurence;
+}itbl[tbl_header.item_count] <bgcolor=cGreen, name="Item Entry", comment="Item Table Entry">;
+

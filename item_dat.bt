@@ -1,0 +1,108 @@
+//--------------------------------------
+//--- 010 Editor v6.0.3 Binary Template
+//
+// File: outbreak item0xx.dat
+// Author: Dchaps
+// Revision: 1.0
+// Purpose: parse item.dats
+//--------------------------------------
+
+struct FILE
+{
+
+struct HEADER_OBJ
+{
+   int32 offset;
+   int32 size;
+  
+}main_header[3] <name="Main Header", comment="offset/size of each sub chunk", bgcolor=cLtBlue>;
+
+
+struct item_props_header_obj
+{
+  int32 tag <comment="unsure, might be offset count">;
+  int32 entry_count <comment="# of defined objects">;
+  int32 cmb_sz <comment="for some reason this is always half the size of the tbl's or combine tables">;
+  int32 unk_count <comment="some count not known yet">;
+  int32 offsets[4] <comment="assuming # of offsets is always 4">; 
+  
+}item_props_header <name="Item Properties Header", bgcolor=cDkRed, fgcolor=cWhite>;
+
+
+struct item_props_obj // 24 byte entries
+{
+ byte ItemFlag00 <comment="always 04 for usable items, 40/41 for equipable items">;
+ byte uFlag00 <comment="N/A">;
+ byte uFlag01 <comment="N/A">;
+ byte ItemFlag01 <comment="is 00 for alot of items, 01 for throwables">;
+ int32 Uint00 <comment="prob 4 bytes of flags, just not sure yet">;
+ byte max_cap <comment="Seems to be a max capacity value, its 07 for kevins 45, 15 for marks handgun etc">;
+ byte uFlag02 <comment="N/A">;
+ int16 Return_Item <comment="2 byte Item ID, for when a new item will be returned, puzzle/deterioration, some other flag for items where this case doesent apply">; // 
+ byte uFlag03 <comment="N\A">;
+ byte uFlag04 <comment="N\A">;
+ byte sound_id <comment="Determines what sound to use for Defined item">;
+ byte item_type <comment="Determines the type of item (animation/effect/">;
+ int16 menu_type <comment="Determines the menu type of defined item">;
+ int16 item_id <comment="the defined item to set properties for">;
+ int16 ushort00 <comment="N/A">;
+ int16 ushort01 <comment="N/A">;
+
+}item_props[item_props_header.entry_count] <name="Item Properties Entry", comment="24 byte entry defining various item properties", bgcolor=cLtRed, fgcolor=cBlack>;
+
+//
+
+FSeek(item_props_header.offsets[3] + 24); // jump to item combo data
+
+
+struct combine_tbl_obj // 6 byte entries
+{                                
+ int16 in_item <comment="Item ID, of item to be combined">;
+ int16 out_item <comment="the resulting item ID">;
+ int16 cmb_flag <comment="seems to define combination paramater, 15 med kit, 18 junk parts">;
+
+}combine_tbl[item_props_header.cmb_sz * 2 / 6] <name="combination entry", bgcolor=cDkGreen>;
+
+FSeek(main_header[1].offset);
+
+struct coordinate_header_obj 
+{
+ int32 tag;
+ int32 entry_count;
+
+}coordinate_header <name="coordinate header", bgcolor=cDkPurple>;
+
+
+struct coordinate_obj // an array of 36 byte chunks, fairly certain the floats are item coordinates, I don't see any item ID's though, these must be tied to .tbls somehow
+{
+ short ushort00 <comment="possibly room id, increments after x amount of entries">;
+ short entry_idx <comment="increments every entry, all the way to header entry count">;
+ float ufloat00 <comment="coordinate?">;
+ float ufloat01 <comment="coordinate?">; // coordinate?
+ float ufloat02 <comment="coordinate?">; // coordinate?
+ short ushort01;
+ short ushort02;
+ short ushort03;
+ short ushort04;
+ float ufloat03 <comment="coordinate?">;
+ float ufloat04 <comment="coordinate?">;
+ float ufloat05 <comment="coordinate?">;
+
+}coordinates[coordinate_header.entry_count] <name="Coordinate entry", bgcolor=cLtPurple>;
+
+
+struct unknown_block_header
+{
+ int32 count <comment="# of entries">; // coincidentally this is the same count as the # of item property entries 
+}ukblockH <name="unknown block header", comment="just a count of entries">;
+
+struct unknown_block // fairly certain this controls the rotating items in player inventory, 8 byte entries
+{
+ byte data[ukblockH.count * 8]; // 8 byte entries?
+}ukblock <name="unknown block data">;
+
+
+
+
+}item_
+dat <name="Item0xx.dat">;

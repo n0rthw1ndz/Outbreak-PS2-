@@ -1,0 +1,35 @@
+//--------------------------------------
+//--- 010 Editor v6.0.3 Binary Template
+//
+// File: Animation Bin Template
+// Author: Dchaps
+// Revision: 0.37
+// Purpose: parsing anim bins
+//--------------------------------------
+ struct FILE
+{
+ struct Main_Header_Obj
+{
+
+    uint32 ulong00;
+    uint32 blk_count;
+    
+    uint32 ptr_count;
+    uint32 ptr_offset;
+    
+
+
+}Main_Header <read=Read_size>;
+
+
+int Read_size <format=decimal>;
+{
+    local int nsz;
+    nsz = Main_Header.ptr_offset - 8;
+    
+    return nsz;
+}
+
+
+}_file;
+

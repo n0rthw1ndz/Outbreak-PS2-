@@ -1,0 +1,27 @@
+//--------------------------------------
+//--- 010 Editor v6.0.3 Binary Template
+//
+// File: .evb (event script)
+// Author: Dchaps
+// Revision: 1.0
+// Purpose: evb parse
+//--------------------------------------
+struct FILE
+{
+
+
+struct Main_Header
+{
+ int32 offset; // ptr to instruction offsets
+ int32 count00; // opcode/instruction count?
+ int32 Ulong00; // 0
+ int32 Ulong01;
+ 
+
+
+}main_header;
+
+
+
+
+}file;

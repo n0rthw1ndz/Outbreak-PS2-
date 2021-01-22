@@ -1,0 +1,280 @@
+//--------------------------------------
+//--- 010 Editor v6.0.3 Binary Template
+//
+// File: outbreak RDT's
+// Author: Dchaps
+// Revision: 1.2 (few small fixes to cam struct)
+// Purpose:  tearing this game a new ass
+//--------------------------------------
+struct FILE {
+
+struct RDT_HEADER_OBJ
+{
+   int32 offset <comment="header offset", name="Offset">;
+   int32 size <comment="header size", name="Size">;
+
+}RDT_HEADER[32] <name="RDT HEADER", comment="int32 offset/size">;
+
+
+struct CAM_HEADER_OBJ
+{
+   int32 tag; 
+   int32 cam_count <comment="# of cameras present">; // # of cams in room
+   int32 offsets[cam_count] <comment="An array of offsets to each camera object">; // # of offsets is equivalent to the cam count
+
+}CAM_HEADER <bgcolor=cDkPurple, name="Camera Header", comment="Camera Object Header">;
+
+struct CAM_OBJ
+{
+  uint32 Cam_Type <comment= "cam type, 0 disabled, 1 static, 2+ follow cams">; 
+  uint32 UNK_00;
+  uint32 UNK_01;
+  uint32 UNK_02;
+  uint32 UNK_03;
+  uint32 H_Rotate<comment= "Set a horizontal rotation point">;
+  uint32 V_Rotate<comment= "Set a vertical rotation point">;
+  float FOV_H; // Horizontal FOV
+  float FOV_V; // Vertical FOV
+  uint32 UNK_06;
+  int32 sb_00_x; // switch related trigger data
+  int32 sb_00_z;
+  int32 sb_00_y;  
+  int32 sb_01_x;
+  int32 sb_01_z;
+  int32 sb_01_y;
+  int32 sb_02_x;
+  int32 sb_02_z;
+  int32 sb_02_y;
+  int32 sb_03_x;
+  int32 sb_03_z;
+  int32 sb_03_y;
+  int32 st_00_x;
+  int32 st_00_z;
+  int32 st_00_y;
+  int32 st_01_x;
+  int32 st_01_z;
+  int32 st_01_y;
+  int32 st_02_x;
+  int32 st_02_z;
+  int32 st_02_y;
+  int32 st_03_x;
+  int32 st_03_z;
+  int32 st_03_y;
+  int32 pos_00_x; 
+  int32 pos_00_z;
+  int32 pos_00_y;
+  int32 pos_01_x;
+  int32 pos_01_z;  
+  int32 cam_pos_x;
+  int32 cam_pos_z;
+  int32 cam_pos_y;
+  int32 pos_01_y; 
+  int32 pos_02_x;
+  int32 pos_02_z;
+  int32 pos_02_y;
+  int32 aim_pos_x;
+  int32 aim_pos_z;
+  int32 aim_pos_y;
+  int32 pos_03_x;
+  int32 pos_03_z;
+  int32 pos_03_y;
+  int32 pos_04_x;
+  int32 pos_04_z;
+  int32 pos_04_y;
+  int32 pos_05_x;
+  int32 pos_05_z;
+  int32 pos_05_y;
+  int32 UNK_07;
+  int32 UNK_08;
+  int32 UNK_09;
+  int32 UNK_10;
+  uint32 ID;
+  int32 UNK_11;
+  int32 UNK_12;
+  int32 UNK_13;
+  float pos_06_x;
+  float pos_06_z;
+  float pos_06_y;
+  float pos_07_x;
+  float pos_07_z;
+  float pos_07_y;
+  int32 UNK_14;
+  int32 UNK_15;
+  int32 UNK_16;
+  int32 UNK_17;
+  int32 UNK_18;
+  int32 UNK_19;
+  int32 UNK_20;
+  int32 UNK_21;
+}cam[CAM_HEADER.cam_count] <name="Camera Object", comment="An Array of Camera Objects", bgcolor=cLtRed>;
+
+struct UNKNOWN_OBJ00
+{
+   
+ byte unk00_chunk[RDT_HEADER[1].size] <bgcolor=cDkRed, fgcolor=cYellow, comment="Unknown data Chunk 0">;
+
+} UNK00 <name="Unknown Object 00", comment="unknown at this time could be some sort of execution script">;
+
+
+struct SND_OBJ
+{
+   /*char fmt_id[4]; //MOMO
+   uint32 unk_00;
+   uint32 Header_Size; // total size including fmt id
+   uint32 unk01;
+   uint32 unk02;
+   uint32 unk03;
+   uint32 unk04;
+   uint32 unk05;
+   uint32 unk06;
+   uint32 unk07;
+   uint32 unk08; // 0
+   uint32 unk09; // 0
+   uint32 unk10; // 0
+   uint32 unk11; // 0
+   uint32 unk12; // 0
+   uint32 unk13; // 0
+   char SCEI_VERS[8]; // FMT ID
+   uint32 vers_size;
+   uint32 vers_num; // version #?
+   char SCEI_HEAD[8]; // FMT ID
+   uint32 head_size; // total size including SCEI FMT ID usually this is 36, but its 64 with FFFFFFFFF?
+   uint32 unk14; // The total size of SCEI **** group header ( starting from the "SCEIVers") 
+   uint32 ADPCM_SIZE; // The total size of the ADPCM data
+   uint32 SCEIPROG_OFF; // SCEIProg starting position ( starting from the "SCEIVers")
+   uint32 SCEISET_OFF; //SCEISset starting position ( starting from the "SCEIVers")
+   uint32 SCEISMPL_OFF; //SCEISmpl starting position ( starting from the "SCEIVers")
+   uint32 SCEIVAGI_OFF; //SCEIVagi starting position ( starting from the "SCEIVers")
+*/
+ byte SND00[RDT_HEADER[2].size] <bgcolor = cDkAqua, fgcolor=cWhite, comment="Floor Sound Bank?">;
+  byte SND01[RDT_HEADER[3].size] <bgcolor = cDkAqua, fgcolor=cWhite, comment="Enviromental Sound Bank?">;
+
+} SND_DATA <name="Sound Data", comment="seems to hold floor sounds & enviromental sounds for a room, Playstation Midi Files (.SND Container)">;
+
+
+struct UNKNOWN_OBJ01
+{
+  byte unk01_chunk[RDT_HEADER[7].size] <bgcolor=cDkRed, fgcolor=cYellow, comment="Unknown data Chunk 1">;
+
+} UNK01 <name="Unknown Object 01", comment="unknown at this time">;
+
+
+struct DOOR_OBJ
+{
+ byte door_data[RDT_HEADER[10].size] <comment="Door and other Trigger zones">;
+
+}door <name="Door Object", comment="Door related and trigger zone aot's  (area of trigger)">;
+
+
+struct lig_light
+{
+ byte light_chunk[RDT_HEADER[11].size] <comment="Light data <.LIG>">;
+
+}lig <name=".LIG", comment=".LIG format">;
+
+
+
+struct FOG_HEADER_OBJ
+{
+int32 tag;
+int32 cam_count; // #of cams per room
+int32 offsets[cam_count];
+
+
+
+}fog_header <name=".FOG Header", comment="Array of offsets/cam count">;
+
+
+struct fog_object
+{
+  int32 tag; //4
+  float fade00; //8 // fog effect
+  int32 uint00; // 12
+  int32 uint01; // 16
+  ubyte env_b; //17  sets background blue
+  ubyte env_g; //18 sets background green
+  ubyte env_r; //19 sets backgorund red
+  ubyte env_alpha; //20 alpha value ?
+  int32 Ulong00;//24
+  int32 Shadow01; //28
+  int32 Shadow02;//32
+  int32 Shadow03;//36
+  float model_r; //40 sets foreground models red
+  float model_g; //44 sets foreground models green
+  float model_b; //48 sets foreground models blue
+  int32 uint02; // 52
+  int32 uint03; // 56
+  int32 uint04; //60
+  int32 uint05; //64
+  int32 uint06; //68
+  int32 uint07; //72               // mostly 0,
+  int32 uint08; //76
+  int32 uint09; //80
+  int32 uint10; //84
+  int32 uint11; // 88
+  int32 uint12; // 92
+  int32 uint13; // 96
+
+
+}fog[fog_header.cam_count] <name=".FOG", comment=".FOG data">;
+
+FSeek(RDT_HEADER[15].offset);
+
+struct UNKNOWN_OBJ02
+{
+ byte _unk02[RDT_HEADER[15].size] <bgcolor=cDkRed, fgcolor=cYellow, comment="Unknown Data chunk 2>">;
+
+}UNK02 <name=".UNK", comment="unknown at this time">;
+
+struct SOUNDZONE_HEADER_OBJ
+{
+   int32 count00; // # of offsets in block 1
+   int32 count01; // # of offsets in block 2
+   
+    int32 off00[count00];
+    int32 off01[count01];
+
+
+//byte _sz[RDT_HEADER[16].size] <comment="Sound zone data">;
+
+}sz_header <name="Sound Zone Header", comment="2 blocks, count, offsets defined">;
+
+
+struct SOUNDZONE_OBJ // 104 byte blocks
+{
+  int32 tag; 
+  int32 uint000; 
+  int32 uint001;
+  int32 uint002; 
+  int32 uint003;
+  int32 uint004; 
+  int32 uint005;
+  int32 uint006; 
+  int32 uint007;
+  int32 uint008; 
+  int32 uint009;
+  int32 uint010; 
+  int32 uint011;
+  int32 uint012; 
+  int32 uint013;
+  int32 uint014; 
+  int32 uint015;
+  int32 uint016; 
+  int32 uint017;
+  int32 uint018; 
+  int32 uint019;
+  int32 uint020; 
+  int32 uint021;
+  int32 uint022; 
+  int32 uint023;
+  int32 soundbank_ID; // change this to set a different sound for this sound zone
+}sz_data[sz_header.count00] <name="Sound Zone Data", comment="104 byte blocks">;// 
+
+
+/*struct SOUNDZONE_COORD_OBJ
+{
+   byte chunk[104];
+}sz_coord;
+*/
+
+}file;
